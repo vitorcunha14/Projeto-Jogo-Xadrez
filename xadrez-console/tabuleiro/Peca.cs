@@ -21,5 +21,9 @@ namespace tabuleiro
             Color = color;
             QteMovimentos = 0;
         }
+        public void IncrementarQteMovimento()
+        {
+            QteMovimentos++;
+        }
     }
 }
