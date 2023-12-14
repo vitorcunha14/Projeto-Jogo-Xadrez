@@ -1,69 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tabuleiro
+﻿namespace tabuleiro
 {
-    internal class Tabuleiro
+    class Tabuleiro
     {
-        public int Linhas { get; set; }
-        public int Colunas { get; set; }
+
+        public int linhas { get; set; }
+        public int colunas { get; set; }
         private Peca[,] pecas;
 
-        public Tabuleiro(int linhas, int colunas  )
+        public Tabuleiro(int linhas, int colunas)
         {
-            Linhas = linhas;
-            Colunas = colunas;
-            pecas = new Peca[ linhas, Colunas ];
+            this.linhas = linhas;
+            this.colunas = colunas;
+            pecas = new Peca[linhas, colunas];
         }
+
         public Peca peca(int linha, int coluna)
         {
             return pecas[linha, coluna];
         }
-        public bool ExistePeca(Posicao pos)
+
+        public Peca peca(Posicao pos)
         {
-            ValidarPos(pos);
+            return pecas[pos.linha, pos.coluna];
+        }
+
+        public bool existePeca(Posicao pos)
+        {
+            validarPosicao(pos);
             return peca(pos) != null;
         }
-        public void ColocarPeca(Peca p, Posicao pos)
+
+        public void colocarPeca(Peca p, Posicao pos)
         {
-            if (ExistePeca(pos))
+            if (existePeca(pos))
             {
-                throw new TabuleiroException("Ja existe uma peça nessa posição ");
+                throw new TabuleiroException("Já existe uma peça nessa posição!");
             }
-            pecas[pos.Linha, pos.Coluna] = p;
-            p.Position = pos;
+            pecas[pos.linha, pos.coluna] = p;
+            p.posicao = pos;
         }
-        public Peca RetirarPeca(Posicao pos)
+
+        public Peca retirarPeca(Posicao pos)
         {
             if (peca(pos) == null)
             {
                 return null;
             }
             Peca aux = peca(pos);
-            aux.Position = null;
-            pecas[pos.Linha,pos.Coluna] = null;
+            aux.posicao = null;
+            pecas[pos.linha, pos.coluna] = null;
             return aux;
         }
-        public Peca peca(Posicao pos)
+
+        public bool posicaoValida(Posicao pos)
         {
-            return pecas[pos.Linha, pos.Coluna];
-        }
-        public bool PosValida(Posicao pos)
-        {
-            if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas)
+            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas)
             {
                 return false;
             }
             return true;
         }
-        public void ValidarPos (Posicao pos)
+
+        public void validarPosicao(Posicao pos)
         {
-            if (!PosValida(pos))
+            if (!posicaoValida(pos))
             {
-                throw new TabuleiroException("Posição invalida! ");
+                throw new TabuleiroException("Posição inválida!");
             }
         }
     }
