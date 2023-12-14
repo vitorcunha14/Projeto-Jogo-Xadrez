@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tabuleiro;
-
+    
 namespace tabuleiro
 {
     internal class Peca
@@ -14,9 +14,9 @@ namespace tabuleiro
         public int QteMovimentos { get; set; }
         public Tabuleiro Tab { get; protected set; }
 
-        public Peca(Posicao position, Tabuleiro tab, Cor color)
+        public Peca(Tabuleiro tab, Cor color)
         {
-            Position = position;
+            Position = null;
             Tab = tab;
             Color = color;
             QteMovimentos = 0;
